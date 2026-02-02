@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arduino Simulator - Task 1</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Wokwi Elements -->
+    <script src="https://unpkg.com/@wokwi/elements@latest/dist/wokwi-elements.bundle.js"></script>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="app-header">
+            <h1>Arduino Experiment Simulator</h1>
+            <div class="subtitle">Task 1 - Web-Based Interface</div>
+        </header>
+
+        <div class="main-content">
+            <!-- Left Sidebar - Component Palette -->
+            <aside class="sidebar">
+                <div class="palette-section">
+                    <h2> Components</h2>
+                    <div class="components-list">
+                        <!-- Arduino -->
+                        <div class="component-card" draggable="true" data-type="arduino">
+                            <div class="component-visual">
+                                <wokwi-arduino-uno scale="0.3"></wokwi-arduino-uno>
+                            </div>
+                            <div class="component-info">
+                                <h3>Arduino Uno</h3>
+                                <p>Main controller board</p>
+                                <div class="drag-indicator">Drag to canvas →</div>
+                            </div>
+                        </div>
+
+                        <!-- LED -->
+                        <div class="component-card" draggable="true" data-type="led">
+                            <div class="component-visual">
+                                <wokwi-led color="red" scale="1.2"></wokwi-led>
+                            </div>
+                            <div class="component-info">
+                                <h3>LED Component</h3>
+                                <p>Light Emitting Diode</p>
+                                <div class="drag-indicator">Drag to canvas →</div>
+                            </div>
+                        </div>
+
+                        <!-- Push Button -->
+                        <div class="component-card" draggable="true" data-type="button">
+                            <div class="component-visual">
+                                <wokwi-pushbutton scale="1.2"></wokwi-pushbutton>
+                            </div>
+                            <div class="component-info">
+                                <h3>Push Button</h3>
+                                <p>Momentary switch</p>
+                                <div class="drag-indicator">Drag to canvas →</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Instructions -->
+                <div class="instructions-section">
+                    <h3> Instructions</h3>
+                    <ol>
+                        <li>Drag components from here</li>
+                        <li>Drop on the canvas area</li>
+                        <li>Switch views using toolbar</li>
+                    </ol>
+                </div>
+            </aside>
+
+            <!-- Main Canvas Area -->
+            <main class="canvas-area">
+                <!-- Toolbar -->
+                <div class="toolbar">
+                    <div class="view-controls">
+                        <button id="componentViewBtn" class="view-btn active">
+                            <span class="btn-icon">🔧</span>
+                            <span class="btn-text">Component View</span>
+                        </button>
+                        <button id="codeViewBtn" class="view-btn">
+                            <span class="btn-icon">📝</span>
+                            <span class="btn-text">Code View</span>
+                        </button>
+                    </div>
+                    
+                    <div class="simulation-controls">
+                        <button id="startBtn" class="sim-btn start-btn">
+                            <span class="btn-icon">▶️</span>
+                            <span class="btn-text">Start Simulation</span>
+                        </button>
+                        <button id="stopBtn" class="sim-btn stop-btn" disabled>
+                            <span class="btn-icon">⏹️</span>
+                            <span class="btn-text">Stop Simulation</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Canvas Container -->
+                <div class="canvas-container">
+                    <!-- Component View -->
+                    <div id="componentView" class="view-content active">
+                        <div class="canvas" id="canvas">
+                            <div class="canvas-placeholder">
+                                <h3>Build Your Circuit Here</h3>
+                                <p>Drag components from the left sidebar and drop them here</p>
+                            </div>
+                            <!-- Components will appear here -->
+                        </div>
+                    </div>
+
+                    <!-- Code View -->
+                    <div id="codeView" class="view-content">
+                        <div class="code-header">
+                            <h3> Generated Arduino Code</h3>
+                            <button id="copyCodeBtn" class="copy-btn">
+                                <span> Copy</span>
+                            </button>
+                        </div>
+                        <div class="code-container">
+                            <pre id="generatedCode">// Welcome to Arduino Simulator
+// Add components to canvas first
+// Then switch to Code View to see generated code
+
+// Components currently on canvas: 0
+
+void setup() {
+  // Setup code will be generated here
+}
+
+void loop() {
+  // Main loop code will be generated here
+}</pre>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Status Bar -->
+                <div class="status-bar">
+                    <div class="status-message" id="statusMessage">Ready - Drag components to begin</div>
+                    <div class="component-counter">
+                        Components: <span id="componentCount">0</span>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
