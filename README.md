@@ -43,19 +43,11 @@ Design and develop a web-based interface that allows users to visually create a 
 
 ---
 
-## Design Guidelines
-- UI design is kept **simple and minimal**
-- **Functional correctness** is the top priority
-- Drag-and-drop behavior and code generation must work reliably
-
----
-
 ## Technology & Tools
 - HTML, CSS, JavaScript
 - Drag-and-drop API
 - **Wokwi elements** for Arduino components and simulation  
-  (Refer to the provided GitHub links for Wokwi integration)
-
+  
 ---
 
 ## Expected Outcome
