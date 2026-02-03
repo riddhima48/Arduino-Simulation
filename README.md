@@ -56,3 +56,20 @@ Design and develop a web-based interface that allows users to visually create a 
 - Users can start and stop the simulation seamlessly
 
 ---
+
+## Task 2 – Auto-Wiring Logic with Configurable Pins
+
+In this task, automatic wiring logic was implemented for a simple Arduino setup using an Arduino Uno, an LED, and a push button.
+
+### Default Wiring Behavior
+- LED is connected to **Digital Pin 10**
+- Push Button is connected to **Digital Pin 2**
+
+This default configuration is applied automatically when the components are added, ensuring the simulation works without requiring manual wiring.
+
+### Pin Reassignment via UI
+Users are provided with a UI control to change the Arduino pin assignments for both the LED and the push button.
+
+Invalid or conflicting pin selections are prevented in real time through the UI.
+
+
