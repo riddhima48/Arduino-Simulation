@@ -320,9 +320,9 @@ class ArduinoSimulator {
             document.addEventListener('click', closeMenu);
         }, 100);
     }
-    
+
     deleteComponent(componentId) {
-        // Remove from DOM
+            // Remove from DOM
         const element = document.getElementById(componentId);
         if (element) {
             element.style.transition = 'all 0.3s ease';

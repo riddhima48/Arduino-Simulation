@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arduino Simulator - Task 1</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Wokwi Elements -->
+    <script src="https://unpkg.com/@wokwi/elements@latest/dist/wokwi-elements.bundle.js"></script>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="app-header">
+            <h1>Arduino Experiment Simulator</h1>
+            <div class="subtitle">Task 1 - Web-Based Interface</div>
+        </header>
+
+        <div class="main-content">
+            <!-- Left Sidebar - Component Palette -->
+            <aside class="sidebar">
+                <div class="palette-section">
+                    <h2> Components</h2>
+                    <div class="components-list">
+                        <!-- Arduino -->
+                        <div class="component-card" draggable="true" data-type="arduino">
+                            <div class="component-visual">
+                                <wokwi-arduino-uno scale="0.3"></wokwi-arduino-uno>
+                            </div>
+                            <div class="component-info">
+                                <h3>Arduino Uno</h3>
+                                <p>Main controller board</p>
+                                <div class="drag-indicator">Drag to canvas →</div>
+                            </div>
+                        </div>
+
+                        <!-- LED -->
+                        <div class="component-card" draggable="true" data-type="led">
+                            <div class="component-visual">
+                                <wokwi-led color="red" scale="1.2"></wokwi-led>
+                            </div>
+                            <div class="component-info">
+                                <h3>LED Component</h3>
+                                <p>Light Emitting Diode</p>
+                                <div class="drag-indicator">Drag to canvas →</div>
+                            </div>
+                        </div>
+
+                        <!-- Push Button -->
+                        <div class="component-card" draggable="true" data-type="button">
+                            <div class="component-visual">
+                                <wokwi-pushbutton scale="1.2"></wokwi-pushbutton>
+                            </div>
+                            <div class="component-info">
+                                <h3>Push Button</h3>
+                                <p>Momentary switch</p>
+                                <div class="drag-indicator">Drag to canvas →</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Pin Configuration Panel -->
+                <div class="config-panel">
+                    <h3>⚙️ Pin Configuration</h3>
+                    <div class="pin-config" id="pinConfig">
+                        <!-- Auto-generated pin controls -->
+                        <div class="config-placeholder">
+                            Add components to configure pins
+                        </div>
+                    </div>
+                    
+                    <div class="pin-rules">
+                        <h4>Rules:</h4>
+                        <ul>
+                            <li>Digital Pins 2-13 available</li>
+                            <li>One pin per component</li>
+                            <li>LED default: Pin 10</li>
+                            <li>Button default: Pin 2</li>
+                        </ul>
+                    </div>
+                </div>
+            </aside>
+
+
+            <!-- Main Canvas Area -->
+            <main class="canvas-area">
+                <!-- Toolbar -->
+                <div class="toolbar">
+                    <div class="view-controls">
+                        <button id="componentViewBtn" class="view-btn active">
+                            <span class="btn-icon">🔧</span>
+                            <span class="btn-text">Component View</span>
+                        </button>
+                        <button id="codeViewBtn" class="view-btn">
+                            <span class="btn-icon">📝</span>
+                            <span class="btn-text">Code View</span>
+                        </button>
+                    </div>
+                    
+                    <div class="simulation-controls">
+                        <button id="autoWireBtn" class="sim-btn wire-btn">
+                            <span class="btn-icon">🔗</span>
+                            <span class="btn-text">Auto-Wire</span>
+                        </button>
+                        <button id="startBtn" class="sim-btn start-btn">
+                            <span class="btn-icon">▶️</span>
+                            <span class="btn-text">Start Simulation</span>
+                        </button>
+                        <button id="stopBtn" class="sim-btn stop-btn" disabled>
+                            <span class="btn-icon">⏹️</span>
+                            <span class="btn-text">Stop Simulation</span>
+                        </button>
+                        
+                    </div>
+                </div>
+
+                <!-- Canvas Container -->
+                <div class="canvas-container">
+                    <!-- Component View -->
+                    <div id="componentView" class="view-content active">
+                        <div class="canvas-header">
+                            <h3>🔌 Circuit Canvas</h3>
+                            <div class="wiring-status" id="wiringStatus">
+                                No connections yet
+                            </div>
+                        </div>
+                        <div class="canvas" id="canvas">
+                            <div class="canvas-placeholder">
+                                <h3>Build Your Circuit Here</h3>
+                                <p>Drag components from the sidebar</p>
+                                <p class="placeholder-hint">Drop anywhere on this area</p>
+                            </div>
+                            <!-- Wiring lines will be drawn here -->
+                            <svg class="wiring-svg" id="wiringSvg"></svg>
+                        </div>
+                    </div>
+
+                    <!-- Code View -->
+                    <div id="codeView" class="view-content">
+                        <div class="code-header">
+                            <h3> Generated Arduino Code</h3>
+                            <button id="copyCodeBtn" class="copy-btn">
+                                <span> Copy</span>
+                            </button>
+                            <button id="refreshCodeBtn" class="refresh-btn">
+                                <span>🔄 Refresh</span>
+                            </button>
+                        </div>
+                        <div class="code-container">
+                            <pre id="generatedCode">// Arduino Code - Auto Generated
+// Components on canvas: 0
+// Default Pin Mapping:
+// LED → Digital Pin 10
+// Push Button → Digital Pin 2
+
+void setup() {
+  // Setup will be generated when components are added
+}
+
+void loop() {
+  // Main loop will be generated when components are added
+}</pre>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Status Bar -->
+                <div class="status-bar">
+                    <div class="status-message" id="statusMessage">Ready - Drag components to begin</div>
+                    <div class="info-display">
+                        <span class="info-item">Components: <span id="componentCount">0</span></span>
+                        <span class="info-item">Connections: <span id="connectionCount">0</span></span>
+                        <span class="info-item">Pins Used: <span id="pinsUsed">None</span></span>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
