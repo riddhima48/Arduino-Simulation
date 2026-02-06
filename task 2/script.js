@@ -1,5 +1,3 @@
-// Arduino Simulator - Task 2: Auto-Wiring Logic (Fixed)
-
 class ArduinoSimulator {
     constructor() {
         this.state = {
@@ -26,6 +24,7 @@ class ArduinoSimulator {
     }
     
     cacheDOM() {
+        // prev elements
         this.componentCards = document.querySelectorAll('.component-card');
         this.canvas = document.getElementById('canvas');
         this.componentView = document.getElementById('componentView');
@@ -65,7 +64,6 @@ class ArduinoSimulator {
     }
     
     setupDragAndDrop() {
-        // Setup drag for component cards
         this.componentCards.forEach(card => {
             card.addEventListener('dragstart', (e) => {
                 this.handleDragStart(e);
@@ -76,12 +74,12 @@ class ArduinoSimulator {
             });
         });
         
-        // Setup canvas as drop zone
+        // canvas as drop zone
         this.canvas.addEventListener('dragover', (e) => {
             e.preventDefault();
             this.canvas.classList.add('drag-over');
             
-            // Show drop indicator
+            // drop indicator
             const rect = this.canvas.getBoundingClientRect();
             const x = e.clientX - rect.left;
             const y = e.clientY - rect.top;
@@ -103,16 +101,14 @@ class ArduinoSimulator {
             this.canvas.classList.remove('drag-over');
             this.dropIndicator.style.display = 'none';
             
-            // Get component type from drag data
+            // getting component type from drag data----Calculate drop position-----Add component at drop position
             const componentType = e.dataTransfer.getData('text/plain');
             if (!componentType) return;
             
-            // Calculate drop position
             const rect = this.canvas.getBoundingClientRect();
             const x = e.clientX - rect.left;
             const y = e.clientY - rect.top;
             
-            // Add component at drop position
             this.addComponent(componentType, x, y);
         });
     }
@@ -124,11 +120,9 @@ class ArduinoSimulator {
         const componentType = componentCard.dataset.type;
         e.dataTransfer.setData('text/plain', componentType);
         
-        // Visual feedback
         componentCard.classList.add('dragging');
         this.updateStatus(`Dragging ${componentType}...`);
         
-        // Set drag image (optional but nice)
         const dragImage = componentCard.cloneNode(true);
         dragImage.style.position = 'fixed';
         dragImage.style.top = '-1000px';
@@ -136,7 +130,6 @@ class ArduinoSimulator {
         dragImage.style.transform = 'scale(0.9)';
         document.body.appendChild(dragImage);
         
-        // Calculate center of the component for drag image
         const rect = componentCard.getBoundingClientRect();
         e.dataTransfer.setDragImage(dragImage, rect.width/2, rect.height/2);
         
@@ -144,10 +137,10 @@ class ArduinoSimulator {
         setTimeout(() => document.body.removeChild(dragImage), 0);
     }
     
-    // ========== FIXED: ADD COMPONENT PROPERLY ==========
+    // ========== ADD COMPONENT PROPERLY ==========
     
     addComponent(type, x, y) {
-        // Check if Arduino already exists (only one allowed)
+        // Check if Arduino already exists (only one is allowed)
         if (type === 'arduino') {
             const hasArduino = this.state.components.some(c => c.type === 'arduino');
             if (hasArduino) {
@@ -171,7 +164,7 @@ class ArduinoSimulator {
         // Update pin configuration UI
         this.updatePinConfigurationUI();
         
-        // Auto-wire if appropriate
+        // Auto-wire 
         if (this.shouldAutoWire()) {
             setTimeout(() => this.autoWireComponents(), 100);
         }
@@ -220,10 +213,10 @@ class ArduinoSimulator {
             </div>
         `;
         
-        // Make draggable on canvas
+        // draggable on canvas
         this.makeComponentDraggable(element, component.id);
         
-        // Add context menu
+        // context menu
         element.addEventListener('contextmenu', (e) => {
             e.preventDefault();
             this.showContextMenu(e, component.id);
@@ -239,7 +232,7 @@ class ArduinoSimulator {
         }, 10);
     }
     
-    // ========== FIXED: MAKE COMPONENTS DRAGGABLE ON CANVAS ==========
+    // ========== MAKE COMPONENTS DRAGGABLE ON CANVAS ==========
     
     makeComponentDraggable(element, componentId) {
         let isDragging = false;
@@ -274,7 +267,7 @@ class ArduinoSimulator {
             let newLeft = initialLeft + dx;
             let newTop = initialTop + dy;
             
-            // Constrain to canvas bounds
+            
             const canvasRect = this.canvas.getBoundingClientRect();
             const elementRect = element.getBoundingClientRect();
             
@@ -284,7 +277,6 @@ class ArduinoSimulator {
             element.style.left = newLeft + 'px';
             element.style.top = newTop + 'px';
             
-            // Update component position in state
             const component = this.state.components.find(c => c.id === componentId);
             if (component) {
                 component.x = newLeft;
@@ -302,7 +294,6 @@ class ArduinoSimulator {
             document.removeEventListener('mousemove', mouseMove);
             document.removeEventListener('mouseup', mouseUp);
             
-            // Redraw wires if any
             this.redrawWires();
         };
         
@@ -367,13 +358,11 @@ class ArduinoSimulator {
         const toRect = toEl.getBoundingClientRect();
         const canvasRect = this.canvas.getBoundingClientRect();
         
-        // Calculate positions relative to canvas
         const x1 = fromRect.left - canvasRect.left + fromRect.width / 2;
         const y1 = fromRect.top - canvasRect.top + fromRect.height / 2;
         const x2 = toRect.left - canvasRect.left + 20;
         const y2 = toRect.top - canvasRect.top + 40;
         
-        // Create SVG line
         const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
         line.setAttribute('x1', x1);
         line.setAttribute('y1', y1);
@@ -532,7 +521,6 @@ class ArduinoSimulator {
         // Regenerate code
         this.generateCode();
         
-        // Redraw wires
         this.redrawWires();
         
         this.updateStatus(`${component.label} changed to Pin ${pinNum}`);
@@ -575,7 +563,7 @@ void loop() {
             }
         });
         
-        // Generate loop logic
+        // Loop logic
         const hasLED = components.some(c => c.type === 'led');
         const hasButton = components.some(c => c.type === 'button');
         

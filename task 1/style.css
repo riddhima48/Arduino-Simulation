@@ -1,4 +1,3 @@
-/* Reset and Base Styles */
 * {
     margin: 0;
     padding: 0;
@@ -12,14 +11,12 @@ body {
     color: #333;
 }
 
-/* App Container */
 .app-container {
     max-width: 1400px;
     margin: 0 auto;
     padding: 20px;
 }
 
-/* Header */
 .app-header {
     background: white;
     padding: 20px 30px;
@@ -41,14 +38,12 @@ body {
     font-weight: 500;
 }
 
-/* Main Content Layout */
 .main-content {
     display: flex;
     gap: 15px;
     min-height: 75vh;
 }
 
-/* Sidebar - Component Palette */
 .sidebar {
     width: 320px;
     background: white;
@@ -147,7 +142,6 @@ body {
     opacity: 0.8;
 }
 
-/* Instructions Section */
 .instructions-section {
     margin-top: 30px;
     padding: 20px;
@@ -174,7 +168,6 @@ body {
     line-height: 1.4;
 }
 
-/* Main Canvas Area */
 .canvas-area {
     flex: 1;
     display: flex;
@@ -185,7 +178,6 @@ body {
     overflow: hidden;
 }
 
-/* Toolbar */
 .toolbar {
     display: flex;
     justify-content: space-between;
@@ -200,7 +192,6 @@ body {
     gap: 15px;
 }
 
-/* Buttons */
 .view-btn, .sim-btn, .copy-btn {
     display: flex;
     align-items: center;
@@ -272,7 +263,6 @@ body {
     background: #5a6268;
 }
 
-/* Canvas Container */
 .canvas-container {
     flex: 1;
     padding: 30px;
@@ -288,7 +278,6 @@ body {
     display: block;
 }
 
-/* Component View Canvas */
 .canvas {
     background: white;
     border: 3px dashed #dee2e6;
@@ -332,7 +321,6 @@ body {
     color: #adb5bd;
 }
 
-/* Components on Canvas */
 .canvas-component {
     position: absolute;
     cursor: move;
@@ -367,7 +355,6 @@ body {
     white-space: nowrap;
 }
 
-/* Code View */
 .code-header {
     display: flex;
     justify-content: space-between;
@@ -401,7 +388,6 @@ body {
     tab-size: 2;
 }
 
-/* Status Bar */
 .status-bar {
     background: #f8f9fa;
     padding: 15px 30px;
@@ -425,7 +411,6 @@ body {
     font-size: 0.9rem;
 }
 
-/* Drop Indicator */
 .drop-indicator {
     position: absolute;
     width: 60px;
@@ -437,7 +422,6 @@ body {
     display: none;
 }
 
-/* Responsive Design */
 @media (max-width: 1200px) {
     .main-content {
         flex-direction: column;

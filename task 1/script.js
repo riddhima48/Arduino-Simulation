@@ -1,6 +1,3 @@
-// Arduino Simulator - Task 1
-// Main Application
-
 class ArduinoSimulator {
     constructor() {
         this.state = {
@@ -21,61 +18,43 @@ class ArduinoSimulator {
     }
     
     cacheDOM() {
-        // Sidebar components
         this.componentCards = document.querySelectorAll('.component-card');
-        
-        // Canvas and views
         this.canvas = document.getElementById('canvas');
         this.componentView = document.getElementById('componentView');
         this.codeView = document.getElementById('codeView');
-        
-        // Buttons
         this.componentViewBtn = document.getElementById('componentViewBtn');
         this.codeViewBtn = document.getElementById('codeViewBtn');
         this.startBtn = document.getElementById('startBtn');
         this.stopBtn = document.getElementById('stopBtn');
         this.copyCodeBtn = document.getElementById('copyCodeBtn');
-        
-        // Status elements
         this.statusMessage = document.getElementById('statusMessage');
         this.componentCount = document.getElementById('componentCount');
         this.generatedCode = document.getElementById('generatedCode');
-        
-        // Create drop indicator
         this.dropIndicator = document.createElement('div');
         this.dropIndicator.className = 'drop-indicator';
         this.canvas.appendChild(this.dropIndicator);
     }
     
     setupEventListeners() {
-        // View switching
         this.componentViewBtn.addEventListener('click', () => this.switchView('component'));
         this.codeViewBtn.addEventListener('click', () => this.switchView('code'));
-        
-        // Simulation controls
         this.startBtn.addEventListener('click', () => this.startSimulation());
         this.stopBtn.addEventListener('click', () => this.stopSimulation());
-        
-        // Copy code button
         this.copyCodeBtn.addEventListener('click', () => this.copyCodeToClipboard());
         
-        // Keyboard shortcuts
+        
         document.addEventListener('keydown', (e) => this.handleKeyPress(e));
     }
     
     setupDragAndDrop() {
-        // Add drag events to all component cards
+        
         this.componentCards.forEach(card => {
             card.addEventListener('dragstart', (e) => this.handleDragStart(e));
             card.addEventListener('dragend', (e) => this.handleDragEnd(e));
         });
-        
-        // Canvas drop zone events
         this.canvas.addEventListener('dragover', (e) => this.handleDragOver(e));
         this.canvas.addEventListener('dragleave', (e) => this.handleDragLeave(e));
         this.canvas.addEventListener('drop', (e) => this.handleDrop(e));
-        
-        // Prevent default behaviors
         this.canvas.addEventListener('dragover', (e) => e.preventDefault());
         this.canvas.addEventListener('drop', (e) => e.preventDefault());
     }
@@ -84,11 +63,9 @@ class ArduinoSimulator {
         const componentType = e.target.closest('.component-card').dataset.type;
         e.dataTransfer.setData('text/plain', componentType);
         
-        // Visual feedback
         e.target.classList.add('dragging');
         this.updateStatus(`Dragging ${componentType}...`);
         
-        // Set custom drag image
         const dragImage = e.target.cloneNode(true);
         dragImage.style.opacity = '0.7';
         dragImage.style.position = 'fixed';
@@ -191,10 +168,10 @@ class ArduinoSimulator {
             </div>
         `;
         
-        // Make draggable on canvas
+        // Make it draggable on canvas
         this.makeDraggable(element, component.id);
         
-        // Add context menu
+        // context menu
         element.addEventListener('contextmenu', (e) => {
             e.preventDefault();
             this.showContextMenu(e, component.id);
@@ -236,7 +213,7 @@ class ArduinoSimulator {
             let newX = e.clientX - canvasRect.left - offsetX;
             let newY = e.clientY - canvasRect.top - offsetY;
             
-            // Constrain to canvas bounds
+            
             newX = Math.max(0, Math.min(newX, this.canvas.clientWidth - element.offsetWidth));
             newY = Math.max(0, Math.min(newY, this.canvas.clientHeight - element.offsetHeight));
             
@@ -262,11 +239,10 @@ class ArduinoSimulator {
     }
     
     showContextMenu(e, componentId) {
-        // Remove existing menu
         const existingMenu = document.querySelector('.context-menu');
         if (existingMenu) existingMenu.remove();
         
-        // Create context menu
+        // context menu
         const menu = document.createElement('div');
         menu.className = 'context-menu';
         menu.style.cssText = `
@@ -288,7 +264,6 @@ class ArduinoSimulator {
             </div>
         `;
         
-        // Add CSS for menu items
         const style = document.createElement('style');
         style.textContent = `
             .menu-item {
@@ -344,7 +319,7 @@ class ArduinoSimulator {
     switchView(view) {
         this.state.view = view;
         
-        // Update button states
+        // Update button
         this.componentViewBtn.classList.toggle('active', view === 'component');
         this.codeViewBtn.classList.toggle('active', view === 'code');
         
@@ -396,13 +371,13 @@ void loop() {
         this.startBtn.disabled = true;
         this.stopBtn.disabled = false;
         
-        // Visual feedback
+        
         this.canvas.style.borderColor = '#2ecc71';
         this.canvas.style.boxShadow = '0 0 25px rgba(46, 204, 113, 0.3)';
         
         this.updateStatus('Simulation started - Click components to interact');
         
-        // Add click handlers for simulation
+        // click handlers for simulation
         this.addSimulationInteractions();
     }
     
@@ -410,8 +385,6 @@ void loop() {
         this.state.simulationRunning = false;
         this.startBtn.disabled = false;
         this.stopBtn.disabled = true;
-        
-        // Remove visual feedback
         this.canvas.style.borderColor = '';
         this.canvas.style.boxShadow = '';
         
@@ -419,7 +392,7 @@ void loop() {
     }
     
     addSimulationInteractions() {
-        // Add button click simulation
+        //button click simulation
         const buttons = this.canvas.querySelectorAll('wokwi-pushbutton');
         const leds = this.canvas.querySelectorAll('wokwi-led');
         
@@ -481,8 +454,6 @@ void loop() {
     updateUI() {
         // Update component count
         this.componentCount.textContent = this.state.components.length;
-        
-        // Hide placeholder if there are components
         const placeholder = this.canvas.querySelector('.canvas-placeholder');
         if (placeholder) {
             placeholder.style.display = this.state.components.length > 0 ? 'none' : 'block';
