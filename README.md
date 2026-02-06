@@ -56,3 +56,57 @@ Design and develop a web-based interface that allows users to visually create a 
 - Users can start and stop the simulation seamlessly
 
 ---
+
+## Task 2 – Auto-Wiring Logic with Configurable Pins
+
+### Objective
+Implement automatic wiring between components and the Arduino Uno, with support for user-controlled digital pin reassignment through the interface.
+
+---
+
+### Features
+
+#### 1. Automatic Pin Wiring
+- Components are automatically connected to the Arduino Uno when placed on the canvas
+- Default pin configuration is applied on initialization:
+  - LED → Digital Pin 10
+  - Push Button → Digital Pin 2
+- Arduino code is generated automatically based on this wiring
+
+---
+
+#### 2. Configurable Pin Assignment
+- Users can change Arduino pin assignments using UI controls
+- Only Arduino digital pins **2 to 13** are available for selection
+- Each Arduino pin can be assigned to **only one component** at a time
+
+---
+
+#### 3. Conflict Prevention Logic
+- Pins already assigned to one component are disabled for others
+- If a pin is selected for the LED, it cannot be used for the push button
+- If a pin is selected for the push button, it cannot be used for the LED
+- Invalid or conflicting selections are prevented in real time
+
+---
+
+#### 4. Code Synchronization
+- Any change in pin configuration:
+  - Updates the internal wiring logic
+  - Regenerates the Arduino code dynamically
+  - Keeps the simulation behavior consistent with the selected pins
+
+---
+
+### Technology & Tools
+- HTML
+- CSS
+- JavaScript
+- Wokwi elements for Arduino simulation
+
+---
+
+### Expected Outcome
+- Components are automatically wired using valid Arduino pins
+- Users can reassign pins without causing conflicts
+- Generated Arduino code always matches the current wiring configuration
