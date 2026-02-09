@@ -11,7 +11,7 @@
     <div class="app-container">
         <header class="app-header">
             <h1>Arduino Experiment Simulator</h1>
-            <div class="subtitle">Task 2-Auto-Wiring Logic with Configurable Pins</div>
+            <div class="subtitle">Task 3-Auto Code Generation & Logic-Level Simulation</div>
         </header>
 
         <div class="main-content">
@@ -137,19 +137,16 @@
                             </button>
                         </div>
                         <div class="code-container">
-                            <pre id="generatedCode">// Arduino Code - Auto Generated
-// Components on canvas: 0
-// Default Pin Mapping:
-// LED → Digital Pin 10
-// Push Button → Digital Pin 2
-
-void setup() {
-  // Setup will be generated when components are added
-}
-
-void loop() {
-  // Main loop will be generated when components are added
-}</pre>
+                            <pre id="generatedCode">// Code will be generated automatically
+                                // Add components and click "Auto-Wire"</pre>
+                        </div>
+                        <div class="simulation-info">
+                            <h4>Logic Simulation Rules:</h4>
+                            <ul>
+                                <li>Button pressed → GPIO HIGH</li>
+                                <li>LED ON when GPIO HIGH</li>
+                                <li>LED OFF when GPIO LOW</li>
+                            </ul>
                         </div>
                     </div>
                 </div>
