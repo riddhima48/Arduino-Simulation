@@ -208,7 +208,7 @@ Implement automatic wiring between components and the Arduino Uno, with support 
 - Wokwi elements for Arduino simulation
 
 ---
-## Task 3 – Auto Code Generation & Logic-Level Simulation
+## Task 3 – Auto Code Generation & Logic-Level Simulation(still working)
 
 ### Objective
 Automatically generate Arduino code based on the current circuit wiring and simulate the circuit behavior at a logic level, ensuring full synchronization between pin configuration, wiring logic, and code—without any manual edits.
